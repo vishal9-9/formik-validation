@@ -1,5 +1,5 @@
 import React from "react";
-import {FormikConsumer, useFormik} from "formik"
+import { useFormik } from "formik"
 
 
 const Body = () => {
@@ -42,7 +42,7 @@ const Body = () => {
                     <input type="password" onChange={ formik.handleChange } onBlur={ formik.handleBlur } value={ formik.values.password } className="Password form-control" name="password" />
                     { formik.touched.password && formik.errors.password ? <div>{ formik.errors.password }</div>: null }
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" onClick={formik.handleReset} className="btn btn-primary">Submit</button>
             </form>
       </div>
     )
