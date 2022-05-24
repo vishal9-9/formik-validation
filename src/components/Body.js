@@ -1,34 +1,45 @@
 import React from "react";
 import { useFormik } from "formik"
+import * as Yup from 'yup'
 
 
 const Body = () => {
-  const validate = values => {
-    const errors = {}
-    if (!values.email){
-      errors.email = 'Required'
-    }else if (values.email.length < 4){
-      errors.email = 'email is too short'
-    }
+  // const validate = values => {
+  //   const errors = {}
+  //   if (!values.email){
+  //     errors.email = 'Required'
+  //   }else if (values.email.length < 4){
+  //     errors.email = 'email is too short'
+  //   }
 
-    if (!values.password){
-      errors.password = 'Required'
-    } else if (values.password.length < 8){
-      errors.password = 'Length is too Short'
-    }
+  //   if (!values.password){
+  //     errors.password = 'Required'
+  //   } else if (values.password.length < 8){
+  //     errors.password = 'Length is too Short'
+  //   }
 
-    return errors
-  }
-
+  //   return errors
+  // }
   const formik = useFormik({
     initialValues:{
       email: '',
       password: ''
-    },validate,
+    }, 
+    // validate,
+    validationSchema : Yup.object({
+      email: Yup.string()
+              .label('Email')
+              .required()
+              .email('Not a Valid Email'),
+      password: Yup.string()
+                .label('Password')
+                .required()
+                .min(8,'length is too short')
+    }),
     onSubmit: values => {
       alert(JSON.stringify(values,null,2))
     }
-  })  
+  }) 
     return (
       <div>
           <form onSubmit={ formik.handleSubmit }>
